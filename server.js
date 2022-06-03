@@ -3,7 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const Book = require('./models/book');
+const getBooks = require('./modules/handlers');
 
 const app = express();
 app.use(cors());
@@ -19,10 +19,15 @@ db.once('open', function() {
   console.log('Mongoose is connected to Atlas!!')
 });
 
+app.get('/books', getBooks)
 app.get('/test', (request, response) => {
 
   response.send('test request received')
 
 })
+
+app.use( (error, request, response, next ) => {
+  response.status(500).send(`My Bad! Error occured in server! Someone call the developer... ${error.message}`);
+});
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
