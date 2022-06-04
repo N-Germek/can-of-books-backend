@@ -29,6 +29,6 @@ async function seedBooks() {
         mongoose.disconnect();
     console.log('done seeding.');
 
-    }
+    };
 
     seedBooks();
